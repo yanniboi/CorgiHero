@@ -30,8 +30,8 @@ namespace MMHippo
         protected HeroCharacter _heroCharacter;
         protected CorgiCharacter _character;
         protected InputManager _inputManager;
-        protected Dictionary<string, SpriteGroupEntry> _dict1H;
-        protected Dictionary<string, SpriteGroupEntry> _dict2H;
+        protected Dictionary<string, ItemSprite> _dict1H;
+        protected Dictionary<string, ItemSprite> _dict2H;
         protected Transform _arm;
 
 
