@@ -1,16 +1,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.HeroEditor.Common.CharacterScripts;
-using Assets.HeroEditor.Common.CharacterScripts.Firearms;
-using Assets.HeroEditor.Common.CommonScripts;
-using Assets.HeroEditor.Common.Data;
-using HeroEditor.Common;
+using Assets.HeroEditor.Common.Scripts.CharacterScripts;
+using Assets.HeroEditor.Common.Scripts.Collections;
+using Assets.HeroEditor.Common.Scripts.CommonScripts;
+using Assets.HeroEditor.Common.Scripts.Data;
+using HeroEditor.Common.Data;
 using HeroEditor.Common.Enums;
 using MoreMountains.CorgiEngine;
 using MoreMountains.Tools;
 using UnityEngine;
-using HeroCharacter = Assets.HeroEditor.Common.CharacterScripts.Character;
+using HeroCharacter = Assets.HeroEditor.Common.Scripts.CharacterScripts.Character;
 using CorgiCharacter = MoreMountains.CorgiEngine.Character;
 
 namespace MMHippo
@@ -21,7 +21,7 @@ namespace MMHippo
 
         /// Which kind of weapon do you want to equip.
         [Tooltip("which kind of weapon do you want to equip")]
-        public WeaponType WeaponType = WeaponType.Firearms1H;
+        public WeaponType WeaponType = WeaponType.Firearm1H;
 
         /// First weapon to use, leave empty for random.
         [Tooltip("first weapon to use, leave empty for random")]
@@ -30,8 +30,8 @@ namespace MMHippo
         protected HeroCharacter _heroCharacter;
         protected CorgiCharacter _character;
         protected InputManager _inputManager;
-        protected Dictionary<string, SpriteGroupEntry> _dict1H;
-        protected Dictionary<string, SpriteGroupEntry> _dict2H;
+        protected Dictionary<string, ItemSprite> _dict1H;
+        protected Dictionary<string, ItemSprite> _dict2H;
         protected Transform _arm;
 
 
@@ -74,38 +74,38 @@ namespace MMHippo
 
         protected void EquipWeaponSprite()
         {
-            _dict1H = _heroCharacter.SpriteCollection.Firearms1H.ToDictionary(i => i.Id, i => i);
-            _dict2H = _heroCharacter.SpriteCollection.Firearms2H.ToDictionary(i => i.Id, i => i);
+            _dict1H = _heroCharacter.SpriteCollection.Firearm1H.ToDictionary(i => i.Id, i => i);
+            _dict2H = _heroCharacter.SpriteCollection.Firearm2H.ToDictionary(i => i.Id, i => i);
 
             switch (WeaponType)
             {
-                case WeaponType.Firearms1H:
+                case WeaponType.Firearm1H:
                     if (PrimaryWeaponId.Length > 0 && _dict1H.ContainsKey(PrimaryWeaponId))
                     {
                         EquipFirearm(_dict1H[PrimaryWeaponId], EquipmentPart.Firearm1H);
                     }
                     else
                     {
-                        var item = _heroCharacter.SpriteCollection.Firearms1H.Random();
+                        var item = _heroCharacter.SpriteCollection.Firearm1H.Random();
                         EquipFirearm(item, EquipmentPart.Firearm1H);
                     }
                     _heroCharacter.UnEquip(EquipmentPart.Shield);
                     break;
-                case WeaponType.Firearms2H:
+                case WeaponType.Firearm2H:
                     if (PrimaryWeaponId.Length > 0 && _dict2H.ContainsKey(PrimaryWeaponId))
                     {
                         EquipFirearm(_dict2H[PrimaryWeaponId], EquipmentPart.Firearm2H);
                     }
                     else
                     {
-                        var item = _heroCharacter.SpriteCollection.Firearms2H.Random();
+                        var item = _heroCharacter.SpriteCollection.Firearm2H.Random();
                         EquipFirearm(item, EquipmentPart.Firearm2H);
                     }
                     break;
             }
         }
 
-        private void EquipFirearm(SpriteGroupEntry item, EquipmentPart position)
+        private void EquipFirearm(ItemSprite item, EquipmentPart position)
         {
             var itemName = item.Id.Split('.')[3];
             _heroCharacter.GetFirearm().Params = FindFirearmParams(itemName);
