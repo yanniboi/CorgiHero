@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets.HeroEditor.Common.CommonScripts;
-using HeroEditor.Common;
+using Assets.HeroEditor.Common.Scripts.CommonScripts;
+using HeroEditor.Common.Data;
 using HeroEditor.Common.Enums;
 using MoreMountains.CorgiEngine;
 using MoreMountains.Tools;
 using UnityEngine;
-using HeroCharacter = Assets.HeroEditor.Common.CharacterScripts.Character;
+using HeroCharacter = Assets.HeroEditor.Common.Scripts.CharacterScripts.Character;
 
 namespace MMHippo
 {
@@ -22,7 +22,7 @@ namespace MMHippo
 
         /// Which kind of weapon do you want to equip.
         [Tooltip("which kind of weapon do you want to equip")]
-        public WeaponType WeaponType = WeaponType.Firearms1H;
+        public WeaponType WeaponType = WeaponType.Firearm1H;
 
         /// First weapon to use, leave empty for random.
         [Tooltip("first weapon to use, leave empty for random")]
@@ -60,7 +60,7 @@ namespace MMHippo
         protected override void UpdateAnimator(Animator animator, HashSet<int> list)
         {
             base.UpdateAnimator(animator, list);
-            if (WeaponState.CurrentState == Weapon.WeaponStates.WeaponStart)
+            if (WeaponState.CurrentState == WeaponStates.WeaponStart)
             {
                 switch (meleeAttackType)
                 {
