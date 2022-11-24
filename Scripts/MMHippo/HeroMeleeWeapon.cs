@@ -38,8 +38,8 @@ namespace MMHippo
         protected int _slashAnimationParameter;
 
         protected HeroCharacter _heroCharacter;
-        protected Dictionary<string, SpriteGroupEntry> _dict1H;
-        protected Dictionary<string, SpriteGroupEntry> _dict2H;
+        protected Dictionary<string, ItemSprite> _dict1H;
+        protected Dictionary<string, ItemSprite> _dict2H;
 
 
         public override void Initialization()
